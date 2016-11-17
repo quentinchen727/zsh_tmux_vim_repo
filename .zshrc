@@ -1,14 +1,14 @@
 # Exports {{{
 export GITHUB_USER="your-username"
 export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin # Reorder PATH so local bin is first
-export GREP_OPTIONS='--color=auto'
+#export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
 export MANPAGER="less -X" # Don’t clear the screen after quitting a manual page
 export EDITOR="vim"
 export TERM="screen-256color"
 export CLICOLOR=1
 export LSCOLORS=Gxfxcxdxbxegedabagacad
-export LS_COLORS=Gxfxcxdxbxegedabagacad
+export LS_COLORS='di=1;32:fi=0:pi=5:so=5:bd=5:cd=5:or=31:mi=0:ex=1;36:*.rpm=90:*tar=1;21'
 # }}}
 
 # Ruby {{{
@@ -35,6 +35,8 @@ function tmuxkill() {
 # }}}
 
 # Alias' {{{
+alias grep='grep --color'
+alias ls='ls -hF --color=tty'
 alias vi="vim"
 alias r="source ~/.zshrc"
 alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
@@ -269,7 +271,7 @@ $(prompt_char) '
 
 export SPROMPT="Correct $fg[red]%R$reset_color to $fg[green]%r$reset_color [(y)es (n)o (a)bort (e)dit]? "
 
-RPROMPT='${PR_GREEN}$(virtualenv_info)%{$reset_color%} ${PR_RED}$(get_ruby_version)%{$reset_color%}'
+#RPROMPT='${PR_GREEN}$(virtualenv_info)%{$reset_color%} ${PR_RED}$(get_ruby_version)%{$reset_color%}'
 # }}}
 
 # History {{{
