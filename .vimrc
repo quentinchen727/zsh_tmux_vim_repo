@@ -1,3 +1,4 @@
+au BufNewFile *.html 0r ~/skeleton.html
 " Settings {{{
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -114,11 +115,16 @@ let g:netrw_liststyle=3
 " cutoff appears on longer screens
 autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
 set colorcolumn=80
+set t_Co=256
+
+" Hiding files matching .ignore pattern
+let g:netrw_list_hide=netrw_gitignore#Hide()
 " }}}
 
 " Plugins {{{
 execute pathogen#infect()
 filetype plugin indent on " required by Pathogen Plugin Manager
+execute pathogen#helptags()
 
 " Theme
 set background=light
@@ -130,6 +136,7 @@ map <leader>y :CtrlPBuffer<cr>
 let g:ctrlp_show_hidden=1
 let g:ctrlp_working_path_mode=0
 let g:ctrlp_max_height=30
+let g:ctrlp_arg_map=1
 
 " CtrlP -> override <C-o> to provide options for how to open files
 let g:ctrlp_arg_map = 1
