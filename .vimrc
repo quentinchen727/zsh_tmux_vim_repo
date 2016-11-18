@@ -1,4 +1,4 @@
-au BufNewFile *.html 0r ~/skeleton.html
+" au BufNewFile *.html 0r ~/skeleton.html
 " Settings {{{
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -127,8 +127,8 @@ filetype plugin indent on " required by Pathogen Plugin Manager
 execute pathogen#helptags()
 
 " Theme
-set background=light
-colorscheme Tomorrow-Night
+set background=dark
+colorscheme gruvbox
 
 " CtrlP
 map <leader>t <C-p>
@@ -240,27 +240,36 @@ map <leader>` <C-W>v
 " Running Tests...
 " See also <https://gist.github.com/8114940>
 
-" Run currently open RSpec test file
-map <Leader>rf :w<cr>:!rspec % --format nested<cr>
+" " Run currently open RSpec test file
+" map <Leader>rf :w<cr>:!rspec % --format nested<cr>
 
-" Run current RSpec test
-" RSpec is clever enough to work out the test to run if the cursor is on any line within the test
-map <Leader>rl :w<cr>:exe "!rspec %" . ":" . line(".")<cr>
+" " Run current RSpec test
+" " RSpec is clever enough to work out the test to run if the cursor is on any line within the test
+" map <Leader>rl :w<cr>:exe "!rspec %" . ":" . line(".")<cr>
 
-" Run all RSpec tests
-map <Leader>rt :w<cr>:!rspec --format nested<cr>
+" " Run all RSpec tests
+" map <Leader>rt :w<cr>:!rspec --format nested<cr>
 
-" Run currently open cucumber feature file
-map <Leader>cf :w<cr>:!cucumber %<cr>
+" " Run currently open cucumber feature file
+" map <Leader>cf :w<cr>:!cucumber %<cr>
 
-" Run current cucumber scenario
-map <Leader>cl :w<cr>:exe "!cucumber %" . ":" . line(".")<cr>
+" " Run current cucumber scenario
+" map <Leader>cl :w<cr>:exe "!cucumber %" . ":" . line(".")<cr>
 
-" Run all cucumber feature files
-map <Leader>ct :w<cr>:!cucumber<cr>
+" " Run all cucumber feature files
+" map <Leader>ct :w<cr>:!cucumber<cr>
 
 " Tmux style window selection
 map <Leader>ws :ChooseWin<cr>
+
+" gruvvox solution to address cursor problem in search
+nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
+nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
+nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+
+nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
 " }}}
 
 " Commands {{{
@@ -323,13 +332,13 @@ endfunction
 autocmd BufRead * setlocal foldmethod=marker
 autocmd BufRead * normal zM
 
-" Rainbow parenthesis always on!
-if exists(':RainbowParenthesesToggle')
-  autocmd VimEnter * RainbowParenthesesToggle
-  autocmd Syntax * RainbowParenthesesLoadRound
-  autocmd Syntax * RainbowParenthesesLoadSquare
-  autocmd Syntax * RainbowParenthesesLoadBraces
-endif
+" " Rainbow parenthesis always on!
+" if exists(':RainbowParenthesesToggle')
+"   autocmd VimEnter * RainbowParenthesesToggle
+"   autocmd Syntax * RainbowParenthesesLoadRound
+"   autocmd Syntax * RainbowParenthesesLoadSquare
+"   autocmd Syntax * RainbowParenthesesLoadBraces
+" endif
 
 " Reset spelling colours when reading a new buffer
 " This works around an issue where the colorscheme is changed by .local.vimrc
