@@ -1,2 +1,5 @@
 # Qin's Note
 utf-8 is not needed any more.
+
+Customized files:
+.gitconfig, .zshrc, .tmux.conf
