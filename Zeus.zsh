@@ -31,6 +31,7 @@ alias ct="ctags -R --exclude=.git --exclude=node_modules"
 alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
 alias l.='ls -d .*'
 alias tmux='tmux -2'
+alias ping="/cygdrive/c/Windows/system32/PING"
 # }}}
 
 # Auto Completion {{{
@@ -162,7 +163,7 @@ setopt transient_rprompt # only show the rprompt on the current prompt
 setopt multios # perform implicit tees or cats when multiple redirections are attempted
 
 # ===== set vi mode
-set -o vi
+# set -o vi
 # }}}
 
 ## Prompt {{{
