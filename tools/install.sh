@@ -1,6 +1,6 @@
 #! env zsh
 CONFIG_DIR=".zsh_tmux_vim_repo"
-CONFIG_REPO="https://github.com/quentin.chen727/zsh_tmxu_vim_repo.git"
+CONFIG_REPO="https://github.com/quentin.chen727/zsh_tmux_vim_repo.git"
 VIM_DIR=".vim"
 VIM_REPO="https://github.com/quentinchen727/Vim_plugins_repo.git"
 cd
