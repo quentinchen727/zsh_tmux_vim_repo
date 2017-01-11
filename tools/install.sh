@@ -5,11 +5,11 @@ VIM_DIR=".vim"
 VIM_REPO="https://github.com/quentinchen727/Vim_plugins_repo.git"
 cd
 git clone $CONFIG_REPO $CONFIG_DIR
-ln -s $CONFIG_DIR/vimrc ~/.vimrc
-ln -s $CONFIG_DIR/tmux.conf ~/.tmux.conf
-ln -s $CONFIG_DIR/Zeus.sh .oh-my-zsh/custom/Zeus.sh
+ln -sF $CONFIG_DIR/vimrc ~/.vimrc
+ln -sF $CONFIG_DIR/tmux.conf ~/.tmux.conf
+ln -sF $CONFIG_DIR/Zeus.sh .oh-my-zsh/custom/Zeus.sh
 touch sisyphus.zsh
-ln -s sisyphus.zsh .oh-my-zsh/custom/sisyphus.zsh
+ln -sF sisyphus.zsh .oh-my-zsh/custom/sisyphus.zsh
 
 #clone vim plugins and bundles
 cd ~
