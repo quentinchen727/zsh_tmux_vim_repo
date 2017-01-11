@@ -1,8 +1,8 @@
 #! env zsh
 CONFIG_DIR=".zsh_tmux_vim_repo"
-CONFIG_REPO="git:"
+CONFIG_REPO="git@github.com:quentinchen727/zsh_tmxu_vim_repo.git"
 VIM_DIR=".vim"
-VIM_REPO=""
+VIM_REPO="git@github.com:quentinchen727/Vim_plugins_repo.git"
 cd
 git clone $CONFIG_REPO $CONFIG_DIR
 ln -s $CONFIG_DIR/vimrc ~/.vimrc
