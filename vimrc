@@ -1,5 +1,45 @@
 " au BufNewFile *.html 0r ~/skeleton.html
 " Settings {{{
+" Customized configuration
+" Always use no-recursive key mapping
+let mapleader = "-"
+
+" Open .vimrc file for editing
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Source .vimrc file to make it take into effect
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Change into uppercase in insert mode
+inoremap <leader>u <esc>viwUwa
+
+" Change into uppercase in normal mode
+nnoremap <leader>u viwUw
+
+" Add double quotes to a word
+nnoremap <leader>" viw<esc>a"<esc>Bi"<esc>E
+
+" Force map jk to esc to save some effort for left finger
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+" Signature abbreviation
+iabbrev ssig -- <cr>Qin Chen<cr>qinche@cisco.com
+
+" Operator-pending mappings: choose paremeters/until return
+onoremap p i(
+
+" Shortcut to serach and replace
+nnoremap ;; :%s:::g<Left><Left><Left>
+nnoremap ;' :%s:::gc<Left><Left><Left><Left>
+
+" Shortcut for commandline mapping
+cnoremap ;\ \(\)<Left><Left>
+
+" Split open a recent file
+nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
+nnoremap  <leader>q :q<cr>
+
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
 
@@ -113,16 +153,22 @@ let g:netrw_liststyle=3
 
 " Always highlight column 80 so it's easier to see where
 " cutoff appears on longer screens
-autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
+augroup highlight_80_col
+  autocmd!
+  autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
+augroup END
 set colorcolumn=80
 set t_Co=256
 
 " Hiding files matching .ignore pattern
-let g:netrw_list_hide=netrw_gitignore#Hide()
+"let g:netrw_list_hide=netrw_gitignore#Hide()
 
 " Simple Python fold setting
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+augroup python_fold
+  autocmd!
+  autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+  autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+augroup END
 " }}}
 
 " Plugins {{{
@@ -294,22 +340,25 @@ endfun
 autocmd BufWritePre * call StripTrailingWhitespace()
 
 " file formats
-autocmd Filetype gitcommit setlocal spell textwidth=72
-autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
-autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
+augroup file_format
+  autocmd!
+  autocmd Filetype gitcommit setlocal spell textwidth=72
+  autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
+  autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
+augroup END
 
 " specify syntax highlighting for specific files
-autocmd Bufread,BufNewFile *.spv set filetype=php
-autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
+" autocmd Bufread,BufNewFile *.spv set filetype=php
+" autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
 
 " Highlight words to avoid in tech writing
 " http://css-tricks.com/words-avoid-educational-writing/
-highlight TechWordsToAvoid ctermbg=red ctermfg=white
-match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy/
-autocmd BufWinEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd InsertEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
-autocmd BufWinLeave * call clearmatches()
+" highlight TechWordsToAvoid ctermbg=red ctermfg=white
+" match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy/
+" autocmd BufWinEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+" autocmd InsertEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+" autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+" autocmd BufWinLeave * call clearmatches()
 
 " Create a 'scratch buffer' which is a temporary buffer Vim wont ask to save
 " http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
@@ -334,8 +383,11 @@ function! s:RunShellCommand(cmdline)
 endfunction
 
 " Close all folds when opening a new buffer
-autocmd BufRead * setlocal foldmethod=marker
-autocmd BufRead * normal zM
+augroup auto_fold
+  autocmd!
+  autocmd FileType vim,zsh setlocal foldmethod=marker
+  autocmd BufRead * normal zM
+augroup END
 
 " " Rainbow parenthesis always on!
 " if exists(':RainbowParenthesesToggle')
