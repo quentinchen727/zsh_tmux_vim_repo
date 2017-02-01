@@ -1,44 +1,7 @@
 " au BufNewFile *.html 0r ~/skeleton.html
 " Settings {{{
 " Customized configuration
-" Always use no-recursive key mapping
 let mapleader = "-"
-
-" Open .vimrc file for editing
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
-" Source .vimrc file to make it take into effect
-nnoremap <leader>sv :source $MYVIMRC<cr>
-
-" Change into uppercase in insert mode
-inoremap <leader>u <esc>viwUwa
-
-" Change into uppercase in normal mode
-nnoremap <leader>u viwUw
-
-" Add double quotes to a word
-nnoremap <leader>" viw<esc>a"<esc>Bi"<esc>E
-
-" Force map jk to esc to save some effort for left finger
-inoremap jk <esc>
-inoremap <esc> <nop>
-
-" Signature abbreviation
-iabbrev ssig -- <cr>Qin Chen<cr>qinche@cisco.com
-
-" Operator-pending mappings: choose paremeters/until return
-onoremap p i(
-
-" Shortcut to serach and replace
-nnoremap ;; :%s:::g<Left><Left><Left>
-nnoremap ;' :%s:::gc<Left><Left><Left><Left>
-
-" Shortcut for commandline mapping
-cnoremap ;\ \(\)<Left><Left>
-
-" Split open a recent file
-nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
-nnoremap  <leader>q :q<cr>
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -172,9 +135,54 @@ augroup END
 " }}}
 
 " Plugins {{{
-execute pathogen#infect()
-filetype plugin indent on " required by Pathogen Plugin Manager
-execute pathogen#helptags()
+"execute pathogen#infect()
+"filetype plugin indent on " required by Pathogen Plugin Manager
+"execute pathogen#helptags()
+"
+"Specify a directory for plugins
+call plug#begin('~/.vim/bundle')
+" nnoremap  <leader>q :q<cr>
+
+" Gruvbox colorsheme
+Plug 'morhetz/gruvbox'
+
+" Vim-airline
+Plug 'vim-airline/vim-airline'
+
+" Nerdtree
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+let NERDTReeIgnore = ['\.pyc$', '\~$'] "ignore files in NERDTree
+
+" Python simple fold
+Plug 'tmhedberg/SimpylFold'
+
+" Auto-indentation fix for python
+Plug 'vim-scripts/indentpython.vim'
+
+" Auto-complete
+Plug 'Valloric/YouCompleteMe'
+
+let g:ycm_autoclose_preview_window_after_completion = 1
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
+
+" Syntax checking/highlighting
+Plug 'scrooloose/syntastic'
+Plug 'nvie/vim-flake8'
+
+" Super searching
+Plug 'kien/ctrlp.vim'
+
+" Git integration
+Plug 'tpope/vim-fugitive'
+
+" Commentary
+Plug 'tpope/vim-commentary'
+
+" Ack search faster than grep
+Plug 'mileszs/ack.vim'
+
+" Initialize plugin system
+call plug#end()
 
 " Theme
 set background=dark
@@ -206,7 +214,7 @@ let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Airline (status line)
-let g:airline_powerline_fonts = 1
+" let g:airline_powerline_fonts = 1
 
 " Gist authorisation settings
 let g:github_user = $GITHUB_USER
@@ -237,12 +245,12 @@ map <Leader>es :Tabularize /=\zs<cr>
 map <Leader>cs :Tabularize /:\zs<cr>
 
 " Camel Case Motion (for dealing with programming code)
-map <silent> w <Plug>CamelCaseMotion_w
-map <silent> b <Plug>CamelCaseMotion_b
-map <silent> e <Plug>CamelCaseMotion_e
-sunmap w
-sunmap b
-sunmap e
+" map <silent> w <Plug>CamelCaseMotion_w
+" map <silent> b <Plug>CamelCaseMotion_b
+" map <silent> e <Plug>CamelCaseMotion_e
+" sunmap w
+" sunmap b
+" sunmap e
 " }}}
 
 " Mappings {{{
@@ -258,6 +266,83 @@ sunmap e
 " e.g.
 " to map something in just NORMAL mode use :nmap or :nnoremap
 " to map something in just VISUAL mode use :vmap or :vnoremap
+
+" Always use no-recursive key mapping
+
+" Open .vimrc file for editing
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Source .vimrc file to make it take into effect
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Change into uppercase in insert mode
+inoremap <leader>u <esc>viwUwa
+
+" Change into uppercase in normal mode
+nnoremap <leader>u viwUw
+
+" Add double quotes to a word
+nnoremap <leader>" viw<esc>a"<esc>Bi"<esc>E
+
+" Toggle line numbers
+nnoremap <leader>N :setlocal number!<cr>
+
+" Force map jk to esc to save some effort for left finger
+inoremap jk <esc>
+inoremap <esc> <nop>
+
+" toggle foldcolumn
+nnoremap <leader>f :call FolderColumnToggle()<cr>
+
+function! FolderColumnToggle()
+  if &foldcolumn
+    setlocal foldcolumn=0
+  else
+    setlocal foldcolumn=4
+  endif
+endfunction
+
+" Toggle Quickfix windows
+nnoremap <leader>q :call QuickfixToggle()<cr>
+
+let g:quickfix_is_open = 0
+
+function! QuickfixToggle()
+  if g:quickfix_is_open
+    cclose
+    let g:quickfix_is_open = 0
+  else
+    copen
+    let g:quickfix_is_open = 1
+  endif
+endfunction
+
+" Signature abbreviation
+iabbrev ssig -- <cr>Qin Chen<cr>qinche@cisco.com
+
+" Operator-pending mappings: choose paremeters/until return
+onoremap p i(
+
+" Shortcut to serach and replace
+" nnoremap ;; :%s:::g<Left><Left><Left>
+" nnoremap ;' :%s:::gc<Left><Left><Left><Left>
+
+" Shortcut for commandline mapping
+cnoremap ;\ \(\)<Left><Left>
+
+" Split open a recent file
+nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
+
+" Split navigations
+nnoremap <c-j> <c-w><c-j>
+nnoremap <c-k> <c-w><c-k>
+nnoremap <c-l> <c-w><c-l>
+nnoremap <c-h> <c-w><c-h>
+
+" Enable folding with the spacebar
+nnoremap <space> za
+
+" nnoremap  <leader>q :q<cr>
 
 " Clear search buffer
 :nnoremap § :nohlsearch<cr>
@@ -344,7 +429,7 @@ augroup file_format
   autocmd!
   autocmd Filetype gitcommit setlocal spell textwidth=72
   autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
-  autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
+  autocmd FileType sh,cucumber,ruby,yaml,zsh,vim,vimrc,html setlocal shiftwidth=2 tabstop=2 expandtab
 augroup END
 
 " specify syntax highlighting for specific files

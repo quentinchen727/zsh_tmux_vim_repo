@@ -31,7 +31,6 @@ alias tmuxkillall="tmux ls | cut -d : -f 1 | xargs -I {} tmux kill-session -t {}
 alias ct="ctags -R --exclude=.git --exclude=node_modules"
 alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
 alias l.='ls -d .*'
-alias ping="/cygdrive/c/Windows/system32/PING"
 # }}}
 
 # Auto Completion {{{
