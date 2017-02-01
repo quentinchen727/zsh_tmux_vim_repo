@@ -148,6 +148,8 @@ Plug 'morhetz/gruvbox'
 
 " Vim-airline
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+let g:airline_theme = 'tomorrow'
 
 " Nerdtree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
