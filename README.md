@@ -4,16 +4,18 @@ Prerequisite:
 *************
 1. yum install zsh # install zsh
 2. yum install git # install git
-3. Export http_proxy=PROXY_URL
-4. Export https_proxy=PROXY_URL
-5. git config --global http.proxy PROXY_URL
-6. sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" # install oh-my-zsh
-7. sh -c "$culr -fsSL https://raw.githubusercontent.com/quentinchen727/zsh_tmux_vim_repo/master/tools/install.sh)" # install vim, zsh, tmux config
-8. Install vim-plug
-9. Load vim, and run :PluginInstall
-10. Install support tools and python-devel/python34-devel for YCM, then run
+3. export http_proxy=PROXY_URL
+4. export https_proxy=PROXY_URL
+5. sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)" # install oh-my-zsh
+6. sh -c "$(culr -fsSL https://raw.githubusercontent.com/quentinchen727/zsh_tmux_vim_repo/master/tools/install.sh)" # install vim, zsh, tmux config
+7. # Install vim-plug
+   curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
+     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+8. # Load vim, and run :PluginInstall
+9. # Install support tools and python-devel/python34-devel for YCM, then run
     ./install.py in YCM
-11. Install the_silver_searcher for ack and ctrlP.
+10. # Install the_silver_searcher for ack and ctrlP.
+    yum install the_silver_searcher
 
 **************
 Note
