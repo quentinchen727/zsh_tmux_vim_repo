@@ -189,11 +189,12 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 
 " Theme
-if has('gui_running')
+" if has('gui_running')
+if &term =~ 'linux'
+  colorscheme zenburn
+else
   set background=dark
   colorscheme gruvbox
-else
-  colorscheme zenburn
 endif
 
 " CtrlP
@@ -406,7 +407,7 @@ map <leader>` <C-W>v
 map <Leader>ws :ChooseWin<cr>
 
 " gruvvox solution to address cursor problem in search
-if has('gui_running')
+if &term != 'linux'
   nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
   nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
   nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
