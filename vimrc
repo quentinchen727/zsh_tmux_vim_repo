@@ -143,8 +143,9 @@ augroup END
 call plug#begin('~/.vim/bundle')
 " nnoremap  <leader>q :q<cr>
 
-" Gruvbox colorsheme
+"Colorsheme
 Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
 
 " Vim-airline
 Plug 'vim-airline/vim-airline'
@@ -165,6 +166,7 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'Valloric/YouCompleteMe'
 
 let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_python_binary_path = '/usr/bin/python3'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 " Syntax checking/highlighting
@@ -187,9 +189,12 @@ Plug 'mileszs/ack.vim'
 call plug#end()
 
 " Theme
-set background=dark
-colorscheme gruvbox
-" colorscheme Tomorrow-night
+if has('gui_running')
+  set background=dark
+  colorscheme gruvbox
+else
+  colorscheme zenburn
+endif
 
 " CtrlP
 map <leader>t <C-p>
@@ -401,13 +406,15 @@ map <leader>` <C-W>v
 map <Leader>ws :ChooseWin<cr>
 
 " gruvvox solution to address cursor problem in search
-nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
-nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
-nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+if has('gui_running')
+  nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
+  nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
+  nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
 
-nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
-nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
-nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+  nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+  nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+  nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+endif
 " }}}
 
 " Commands {{{
