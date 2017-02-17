@@ -28,11 +28,12 @@ NO_PROXY="$NO_PROXY_DOCKER,$LAB_ADDRS"
 echo "# Proxy setting
 export http_proxy=$CISCO_PROXY
 export https_proxy=$CISCO_PROXY
-export no_proxy=$NO_PROXY" >> /etc/environment
-source /etc/environment
+export no_proxy=$NO_PROXY" >> /etc/profile.d/proxy.sh
+source /etc/profile.d/proxy.sh
 # }}}
 
 # Add the official docker repo {{{
+echo "Add docker offical repo"
 yum install -y yum-utils
 yum-config-manager \
   --add-repo \
@@ -41,6 +42,7 @@ yum makecache fast
 # }}}
 
 # Install TAAS packages {{{
+echo "Install Taas-specific packages"
 pkgs=(zsh tmux git docker-engine python34 the_silver_searcher)
 for pkg in ${pkgs[*]}
 do
@@ -49,7 +51,8 @@ done
 # }}}
 
 # Docker configuration {{{
-mkdir -p /etc/systemd/system/docker.service.d
+echo "Configure Docker"
+ecmd mkdir -p /etc/systemd/system/docker.service.d
 echo '[Service]
 Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=$NO_PROXY_DOCKER"
 ' > /etc/systemd/system/docker.service.d/http-proxy.conf
@@ -59,9 +62,10 @@ ecmd systemctl start docker
 # }}}
 
 # Vncserver configuration for root {{{
+echo "Configure vncserver for root"
 cp /usr/lib/systemd/system/vncserver@.service \
      /etc/systemd/system/vncserver-root@.service
-sed -i "/^ExecSTartPre/ s/<USER>/root/" \
+sed -i "/^ExecStart/ s/<USER>/root/" \
      /etc/systemd/system/vncserver-root@.service
 sed -i "/^PIDFile/ s:home/<USER>:root:" \
      /etc/systemd/system/vncserver-root@.service
@@ -82,12 +86,13 @@ echo "### xstartup needs execution bit on ###" `date`
 ecmd chmod 755 /root/.vnc/xstartup
 ecmd ls -l /root/.vnc/
 echo "### enable vncserver to auto start with display number <8> ###"
-systemctl enable vncserver-root@:8.service
-systemctl daemon-reload
-systemctl start vncserver-root@:8.service
+ecmd systemctl enable vncserver-root@:8.service
+ecmd systemctl daemon-reload
+ecmd systemctl start vncserver-root@:8.service
 # }}}
 
 # Qins customized configuration {{{
+echo "Qin's special configuration"
 # Install oh-my-zsh; delete "env zsh" to avoid entering zsh
 ecmd sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed '/env zsh/ d')"
 
@@ -98,18 +103,21 @@ ecmd sh -c "$(curl -fsSL https://raw.githubusercontent.com/quentinchen727/zsh_tm
 ecmd curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo "In order to install vim plugin, launch vim and execute:"
+echo
+echo "************** manually tuning instructions **************"
+echo "1.source /etc/environment to get proxy setting into effect"
+echo "  In order to install vim plugin, launch vim and execute:"
 echo "              :PluginInstall"
 
 # }}}
 
 # Network configuration {{{
-echo "Change the interface configurations in /etc/sysconfig/network-scripts"
-echo "Refer to ifconfig-example"
-echo "After that, issue the following:"
-echo "Release existing IPs: dhclient -r"
-echo "Reboot the interface: ifdown and ifup the interface"
-echo "or ip link set enp_x_x down/up"
+echo "2. Change the interface configurations in /etc/sysconfig/network-scripts"
+echo "   Refer to ifconfig-example"
+echo "   After that, issue the following:"
+echo "   Release existing IPs: dhclient -r"
+echo "   Reboot the interface: ifdown and ifup the interface"
+echo "   or ip link set enp_x_x down/up"
 # }}}
 
 echo "### End of taas-install steps"
