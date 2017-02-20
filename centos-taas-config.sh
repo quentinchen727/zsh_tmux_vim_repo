@@ -43,7 +43,7 @@ yum makecache fast
 
 # Install TAAS packages {{{
 echo "Install Taas-specific packages"
-pkgs=(zsh tmux git docker-engine python34 the_silver_searcher)
+pkgs=(zsh tmux git docker-engine python34 the_silver_searcher nodejs)
 for pkg in ${pkgs[*]}
 do
   ecmd yum -y install $pkg
