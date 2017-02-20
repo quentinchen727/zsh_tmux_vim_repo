@@ -42,12 +42,18 @@ yum makecache fast
 # }}}
 
 # Install TAAS packages {{{
+# lsb is the dependency for chrome
 echo "Install Taas-specific packages"
-pkgs=(zsh tmux git docker-engine python34 the_silver_searcher nodejs)
+pkgs=(zsh tmux git docker-engine python34 the_silver_searcher nodejs lsb)
 for pkg in ${pkgs[*]}
 do
   ecmd yum -y install $pkg
 done
+
+echo "Install Chrome"
+ecmd wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
+ecmd rpm -i google-chrome-stable_current_x86_64.rpm
+ecmd rm google-chrome-stable_current_x86_64.rpm
 # }}}
 
 # Docker configuration {{{
@@ -103,11 +109,17 @@ ecmd sh -c "$(curl -fsSL https://raw.githubusercontent.com/quentinchen727/zsh_tm
 ecmd curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+# Install YouCompleteMe
+ecmd yum install python-devel python34-devel automake gcc-c++ cmake
+echo "gcc and kernel-devel have already been installed"
+
 echo
 echo "************** manually tuning instructions **************"
 echo "1.source /etc/environment to get proxy setting into effect"
 echo "  In order to install vim plugin, launch vim and execute:"
-echo "              :PluginInstall"
+echo "              :PluginInstall                             "
+echo "  After that, cd into ~/.vim/bundle/YouCompleteMe        "
+echo "             ./install.py --tern-completer                "
 
 # }}}
 
