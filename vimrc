@@ -169,7 +169,7 @@ let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python3'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
-" Syntax checking/highlighting
+" Syntax checking/highlighting and PEP8 check
 Plug 'scrooloose/syntastic'
 Plug 'nvie/vim-flake8'
 
@@ -184,6 +184,16 @@ Plug 'tpope/vim-commentary'
 
 " Ack search faster than grep
 Plug 'mileszs/ack.vim'
+
+" Javascript configuration
+" Nicer look for javascript: syntax + higlight + indent
+Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'nathanaelkane/vim-indent-guides'
+" Add delimter automatically
+Plug 'Raimondi/delimitMate'
+" Extra completion for javascript
+Plug 'marijnh/tern_for_vim'
 
 " Initialize plugin system
 call plug#end()
@@ -276,6 +286,9 @@ map <Leader>cs :Tabularize /:\zs<cr>
 " to map something in just VISUAL mode use :vmap or :vnoremap
 
 " Always use no-recursive key mapping
+
+" insert a newline and jump to the newline
+inoremap <C-c> <cr><cr><esc>ki<tab>
 
 " Open .vimrc file for editing
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
