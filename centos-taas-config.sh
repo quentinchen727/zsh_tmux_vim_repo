@@ -113,13 +113,18 @@ ecmd curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
 ecmd yum install python-devel python34-devel automake gcc-c++ cmake
 echo "gcc and kernel-devel have already been installed"
 
+# Install jSHint for javascript
+ecmd npm install -g jshint
+
 echo
 echo "************** manually tuning instructions **************"
 echo "1.source /etc/environment to get proxy setting into effect"
 echo "  In order to install vim plugin, launch vim and execute:"
 echo "              :PluginInstall                             "
 echo "  After that, cd into ~/.vim/bundle/YouCompleteMe        "
-echo "             ./install.py --tern-completer                "
+echo "             ./install.py --tern-completer               "
+echo "             cd ~/.vim/bundle/tern_for_vim               "
+echo "             npm install # to run tern server            "
 
 # }}}
 
