@@ -137,15 +137,16 @@ augroup END
 
 " Plugins {{{
 "execute pathogen#infect()
-"filetype plugin indent on " required by Pathogen Plugin Manager
+" filetype plugin indent on " required by Pathogen Plugin Manager
 "execute pathogen#helptags()
 "
 "Specify a directory for plugins
 call plug#begin('~/.vim/bundle')
 " nnoremap  <leader>q :q<cr>
 
-" Gruvbox colorsheme
+"Colorsheme
 Plug 'morhetz/gruvbox'
+Plug 'jnurmine/Zenburn'
 
 " Vim-airline
 Plug 'vim-airline/vim-airline'
@@ -165,10 +166,11 @@ Plug 'vim-scripts/indentpython.vim'
 " Auto-complete; YCM needs extra installation to work in cgwin.
 " Plug 'Valloric/YouCompleteMe'
 
-" let g:ycm_autoclose_preview_window_after_completion = 1
-" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_python_binary_path = '/usr/bin/python3'
+nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
-" Syntax checking/highlighting
+" Syntax checking/highlighting and PEP8 check
 Plug 'scrooloose/syntastic'
 Plug 'nvie/vim-flake8'
 
@@ -184,13 +186,28 @@ Plug 'tpope/vim-commentary'
 " Ack search faster than grep
 Plug 'mileszs/ack.vim'
 
+" Javascript configuration
+" Nicer look for javascript: syntax + higlight + indent
+Plug 'jelera/vim-javascript-syntax'
+Plug 'pangloss/vim-javascript'
+Plug 'nathanaelkane/vim-indent-guides'
+" Add delimter automatically
+Plug 'Raimondi/delimitMate'
+let delimitMate_expand_cr = 1
+" Extra completion for javascript
+Plug 'marijnh/tern_for_vim'
+
 " Initialize plugin system
 call plug#end()
 
 " Theme
-set background=dark
-colorscheme gruvbox
-" colorscheme Tomorrow-night
+" if has('gui_running')
+if &term =~ 'linux'
+  colorscheme zenburn
+else
+  set background=dark
+  colorscheme gruvbox
+endif
 
 " CtrlP
 map <leader>t <C-p>
@@ -272,6 +289,9 @@ map <Leader>cs :Tabularize /:\zs<cr>
 
 " Always use no-recursive key mapping
 
+" insert to the end
+inoremap <C-e> <esc>A
+
 " Open .vimrc file for editing
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
@@ -285,7 +305,7 @@ inoremap <leader>u <esc>viwUwa
 nnoremap <leader>u viwUw
 
 " Add double quotes to a word
-nnoremap <leader>" viw<esc>a"<esc>Bi"<esc>E
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
 
 " Toggle line numbers
 nnoremap <leader>N :setlocal number!<cr>
@@ -320,8 +340,9 @@ function! QuickfixToggle()
   endif
 endfunction
 
-" Signature abbreviation
+" Abbreviation
 iabbrev ssig -- <cr>Qin Chen<cr>qinche@cisco.com
+iabbrev fnc function
 
 " Operator-pending mappings: choose paremeters/until return
 onoremap p i(
@@ -332,9 +353,6 @@ onoremap p i(
 
 " Shortcut for commandline mapping
 cnoremap ;\ \(\)<Left><Left>
-
-" Split open a recent file
-nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
 
 " Split navigations
 nnoremap <c-j> <c-w><c-j>
@@ -373,8 +391,11 @@ map <leader>w[ <C-W>= " equalize all windows
 " Same with mapping <C-W>|
 
 " Make splitting Vim windows easier
-map <leader>; <C-W>s
-map <leader>` <C-W>v
+nnoremap <leader>s <C-W>s
+nnoremap <leader>v <C-W>v
+" Split open a recent file
+" nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
+
 
 " Running Tests...
 " See also <https://gist.github.com/8114940>
@@ -402,13 +423,15 @@ map <leader>` <C-W>v
 map <Leader>ws :ChooseWin<cr>
 
 " gruvvox solution to address cursor problem in search
-nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
-nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
-nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
+if &term != 'linux'
+  nnoremap <silent> [oh :call gruvbox#hls_show()<CR>
+  nnoremap <silent> ]oh :call gruvbox#hls_hide()<CR>
+  nnoremap <silent> coh :call gruvbox#hls_toggle()<CR>
 
-nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
-nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
-nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+  nnoremap * :let @/ = ""<CR>:call gruvbox#hls_show()<CR>*
+  nnoremap / :let @/ = ""<CR>:call gruvbox#hls_show()<CR>/
+  nnoremap ? :let @/ = ""<CR>:call gruvbox#hls_show()<CR>?
+endif
 " }}}
 
 " Commands {{{
@@ -473,7 +496,7 @@ endfunction
 " Close all folds when opening a new buffer
 augroup auto_fold
   autocmd!
-  autocmd FileType vim,zsh setlocal foldmethod=marker
+  autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
   autocmd BufRead * normal zM
 augroup END
 

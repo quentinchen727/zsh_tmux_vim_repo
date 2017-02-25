@@ -25,6 +25,7 @@ function tmuxkill() {
 alias vi="vim"
 alias py='python3'
 alias r="source ~/.zshrc"
+alias py="python3"
 alias tl="tmux ls"
 alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
 alias tmuxsrc="tmux source-file ~/.tmux.conf"
@@ -297,6 +298,8 @@ HISTFILE=~/.zsh_history
 SSH_ENV="$HOME/.ssh/environment"
 function start_agent {
   echo "Inintialising new SSH agent..."
+  ssh_dir=$(dirname ${SSH_ENV})
+  [[ -d $ssh_dir ]] || mkdir $ssh_dir
   ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
   echo succeeded
   chmod 600 "${SSH_ENV}"
