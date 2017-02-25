@@ -136,7 +136,7 @@ augroup END
 
 " Plugins {{{
 "execute pathogen#infect()
-"filetype plugin indent on " required by Pathogen Plugin Manager
+" filetype plugin indent on " required by Pathogen Plugin Manager
 "execute pathogen#helptags()
 "
 "Specify a directory for plugins
@@ -192,6 +192,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'nathanaelkane/vim-indent-guides'
 " Add delimter automatically
 Plug 'Raimondi/delimitMate'
+let delimitMate_expand_cr = 1
 " Extra completion for javascript
 Plug 'marijnh/tern_for_vim'
 
@@ -287,8 +288,8 @@ map <Leader>cs :Tabularize /:\zs<cr>
 
 " Always use no-recursive key mapping
 
-" insert a newline and jump to the newline
-inoremap <C-c> <cr><cr><esc>ki<tab>
+" insert to the end
+inoremap <C-e> <esc>A
 
 " Open .vimrc file for editing
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -303,7 +304,7 @@ inoremap <leader>u <esc>viwUwa
 nnoremap <leader>u viwUw
 
 " Add double quotes to a word
-nnoremap <leader>" viw<esc>a"<esc>Bi"<esc>E
+nnoremap <leader>" viw<esc>a"<esc>bi"<esc>e
 
 " Toggle line numbers
 nnoremap <leader>N :setlocal number!<cr>
@@ -338,8 +339,9 @@ function! QuickfixToggle()
   endif
 endfunction
 
-" Signature abbreviation
+" Abbreviation
 iabbrev ssig -- <cr>Qin Chen<cr>qinche@cisco.com
+iabbrev fnc function
 
 " Operator-pending mappings: choose paremeters/until return
 onoremap p i(
@@ -350,9 +352,6 @@ onoremap p i(
 
 " Shortcut for commandline mapping
 cnoremap ;\ \(\)<Left><Left>
-
-" Split open a recent file
-nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
 
 " Split navigations
 nnoremap <c-j> <c-w><c-j>
@@ -391,8 +390,11 @@ map <leader>w[ <C-W>= " equalize all windows
 " Same with mapping <C-W>|
 
 " Make splitting Vim windows easier
-map <leader>; <C-W>s
-map <leader>` <C-W>v
+nnoremap <leader>s <C-W>s
+nnoremap <leader>v <C-W>v
+" Split open a recent file
+" nnoremap  <leader>v :execute "rightbelow vsplit " . bufname("#")<cr>
+
 
 " Running Tests...
 " See also <https://gist.github.com/8114940>
@@ -493,7 +495,7 @@ endfunction
 " Close all folds when opening a new buffer
 augroup auto_fold
   autocmd!
-  autocmd FileType vim,zsh setlocal foldmethod=marker
+  autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
   autocmd BufRead * normal zM
 augroup END
 

@@ -4,7 +4,7 @@
 # customized configuration for TAAS #
 #...................................#
 
-(
+{
 E_NOT_ROOT=60
 
 if [[ $USER != "root" ]]
@@ -41,10 +41,22 @@ yum-config-manager \
 yum makecache fast
 # }}}
 
+# Add the mongodb repo {{{
+  echo "Add Mongodb repo"
+  echo "[mongodb-org-3.4]
+  name=MongoDB Repository
+  baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+  gpgcheck=1
+  enabled=1
+  gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc" \
+  > /etc/yum.repo.d/mongodb-org-3.4.repo
+}}}
+
 # Install TAAS packages {{{
 # lsb is the dependency for chrome
 echo "Install Taas-specific packages"
-pkgs=(zsh tmux git docker-engine python34 the_silver_searcher nodejs lsb)
+pkgs=(zsh tmux git docker-engine python34 the_silver_searcher nodejs lsb \
+  mongodb-org)
 for pkg in ${pkgs[*]}
 do
   ecmd yum -y install $pkg
@@ -138,4 +150,4 @@ echo "   or ip link set enp_x_x down/up"
 # }}}
 
 echo "### End of taas-install steps"
-) 2>&1 | /usr/bin/tee /root/taas_install.log
+} 2>&1 | /usr/bin/tee /root/taas_install.log
