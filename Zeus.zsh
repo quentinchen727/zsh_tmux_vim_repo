@@ -23,6 +23,7 @@ function tmuxkill() {
 
 # Alias' {{{
 alias vi="vim"
+alias py='python3'
 alias r="source ~/.zshrc"
 alias tl="tmux ls"
 alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session

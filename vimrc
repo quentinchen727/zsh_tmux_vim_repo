@@ -59,8 +59,9 @@ set tabstop=4
 " The number of spaces inserted for a tab (used for auto indenting)
 set shiftwidth=4
 
-" Turn on line numbers
+" Turn on line numbers and relative numbers
 set number
+set relativenumber
 
 " Highlight tailing whitespace
 " See issue: https://github.com/Integralist/ProVim/issues/4
@@ -161,11 +162,11 @@ Plug 'tmhedberg/SimpylFold'
 " Auto-indentation fix for python
 Plug 'vim-scripts/indentpython.vim'
 
-" Auto-complete
-Plug 'Valloric/YouCompleteMe'
+" Auto-complete; YCM needs extra installation to work in cgwin.
+" Plug 'Valloric/YouCompleteMe'
 
-let g:ycm_autoclose_preview_window_after_completion = 1
-nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 " Syntax checking/highlighting
 Plug 'scrooloose/syntastic'
