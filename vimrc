@@ -164,7 +164,7 @@ Plug 'tmhedberg/SimpylFold'
 Plug 'vim-scripts/indentpython.vim'
 
 " Auto-complete; YCM needs extra installation to work in cgwin.
-" Plug 'Valloric/YouCompleteMe'
+Plug 'Valloric/YouCompleteMe'
 
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_python_binary_path = '/usr/bin/python3'

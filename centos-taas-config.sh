@@ -66,6 +66,9 @@ echo "Install Chrome"
 ecmd wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm
 ecmd rpm -i google-chrome-stable_current_x86_64.rpm
 ecmd rm google-chrome-stable_current_x86_64.rpm
+
+echo "Install pip for python34"
+wget https://bootstrap.pypa.io/get-pip.py -O - | python3
 # }}}
 
 # Docker configuration {{{
@@ -128,6 +131,8 @@ echo "gcc and kernel-devel have already been installed"
 # Install jSHint for javascript
 ecmd npm install -g jshint
 
+# Install python package flake8
+ecmd pip3 install flake8
 echo
 echo "************** manually tuning instructions **************"
 echo "1.source /etc/environment to get proxy setting into effect"
