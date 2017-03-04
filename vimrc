@@ -128,11 +128,11 @@ set t_Co=256
 "let g:netrw_list_hide=netrw_gitignore#Hide()
 
 " Simple Python fold setting
-augroup python_fold
-  autocmd!
-  autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-  autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-augroup END
+" augroup python_fold
+  " autocmd!
+  " autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+  " autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+" augroup END
 " }}}
 
 " Plugins {{{
@@ -159,6 +159,7 @@ let NERDTReeIgnore = ['\.pyc$', '\~$'] "ignore files in NERDTree
 
 " Python simple fold
 Plug 'tmhedberg/SimpylFold'
+let g:SimpylFold_docstring_preview = 1
 
 " Auto-indentation fix for python
 Plug 'vim-scripts/indentpython.vim'
@@ -259,10 +260,10 @@ highlight clear SignColumn
 map <leader>' :NERDTreeToggle<cr>
 
 " Tabularize
-map <Leader>e :Tabularize /=<cr>
-map <Leader>c :Tabularize /:<cr>
-map <Leader>es :Tabularize /=\zs<cr>
-map <Leader>cs :Tabularize /:\zs<cr>
+" map <Leader>e :Tabularize /=<cr>
+" map <Leader>c :Tabularize /:<cr>
+" map <Leader>es :Tabularize /=\zs<cr>
+" map <Leader>cs :Tabularize /:\zs<cr>
 
 " Camel Case Motion (for dealing with programming code)
 " map <silent> w <Plug>CamelCaseMotion_w
@@ -355,10 +356,10 @@ onoremap p i(
 cnoremap ;\ \(\)<Left><Left>
 
 " Split navigations
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
+" nnoremap <c-j> <c-w>j
+" nnoremap <c-k> <c-w>k
+" nnoremap <c-l> <c-w>l
+" nnoremap <c-h> <c-w>h
 
 " Enable folding with the spacebar
 nnoremap <space> za
