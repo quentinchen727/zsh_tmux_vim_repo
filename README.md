@@ -25,7 +25,7 @@ Customized files:
 .tmux.conf: tmux config file
 .vimrc: vim config file
 .zshrc: geneal zsh config file
-Zeus.zsh: general personalized zsh config file
+Athena.zsh: general personalized zsh config file
 Sysphus.zsh: specific zsh config file, usually for alias
 
 Tuned around the oh-my-zsh file.

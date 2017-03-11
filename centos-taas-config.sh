@@ -5,6 +5,8 @@
 #...................................#
 
 {
+TAAS_HOME=/home/cosben
+TAAS_USER=cosben
 E_NOT_ROOT=60
 
 if [[ $USER != "root" ]]
@@ -22,8 +24,10 @@ LAB_PROXY=http://171.71.50.129:3128
 CISCO_PROXY=http://proxy.esl.cisco.com:80
 lab_addrs=$(printf "%s," 20.0.{50,52,60}.{1..255})
 LAB_ADDRS=${lab_addrs%,}
+private_addrs=$(printf "%s," 10.{0..255}.{0..255}.{0..255})
+PRIVATE_ADDRS=${private_addrs%,}
 NO_PROXY_DOCKER="localhost,127.0.0.1,dockerhub.cisco.com"
-NO_PROXY="$NO_PROXY_DOCKER,$LAB_ADDRS"
+NO_PROXY="$NO_PROXY_DOCKER,$LAB_ADDRS,$PRIVATE_ADDRS"
 
 echo "# Proxy setting
 export http_proxy=$CISCO_PROXY
@@ -42,14 +46,15 @@ yum makecache fast
 # }}}
 
 # Add the mongodb repo {{{
+# single quote to strong quote the text, no shell parsing needed for $releasever
   echo "Add Mongodb repo"
-  echo "[mongodb-org-3.4]
+  echo '[mongodb-org-3.4]
   name=MongoDB Repository
   baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
   gpgcheck=1
   enabled=1
-  gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc" \
-  > /etc/yum.repo.d/mongodb-org-3.4.repo
+  gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc' \
+  > /etc/yum.repos.d/mongodb-org-3.4.repo
 }}}
 
 # Install TAAS packages {{{
@@ -69,67 +74,72 @@ ecmd rm google-chrome-stable_current_x86_64.rpm
 
 echo "Install pip for python34"
 wget https://bootstrap.pypa.io/get-pip.py -O - | python3
+
+echo "Install docker-compose"
+pip install docker-compose
 # }}}
 
 # Docker configuration {{{
 echo "Configure Docker"
 ecmd mkdir -p /etc/systemd/system/docker.service.d
 echo '[Service]
-Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "NO_PROXY=$NO_PROXY_DOCKER"
+Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=https://proxy.esl.cisco.com:80/" "NO_PROXY=localhost,127.0.0.1,dockerhub.cisco.com"
 ' > /etc/systemd/system/docker.service.d/http-proxy.conf
 ecmd systemctl enable docker
 ecmd systemctl daemon-reload
 ecmd systemctl start docker
 # }}}
 
-# Vncserver configuration for root {{{
-echo "Configure vncserver for root"
+# Vncserver configuration for $TAAS_USER {{{
+echo "Configure vncserver for $TAAS_USER"
 cp /usr/lib/systemd/system/vncserver@.service \
-     /etc/systemd/system/vncserver-root@.service
-sed -i "/^ExecStart/ s/<USER>/root/" \
-     /etc/systemd/system/vncserver-root@.service
-sed -i "/^PIDFile/ s:home/<USER>:root:" \
-     /etc/systemd/system/vncserver-root@.service
-echo "### create vncpasswd under /root/.vnc ###" `date`
-echo -e "cisco123\ncisco123\n" | vncpasswd
-ecmd ls -l /root/.vnc/
+     /etc/systemd/system/vncserver-$TAAS_USER@.service
+sed -i "/^ExecStart/ s/<USER>/$TAAS_USER/" \
+     /etc/systemd/system/vncserver-$TAAS_USER@.service
+sed -i "/^PIDFile/ s:home/<USER>:$TAAS_USER:" \
+     /etc/systemd/system/vncserver-$TAAS_USER@.service
+echo "### create vncpasswd under /$TAAS_HOME/.vnc ###" `date`
+echo -e "lab123\nlab123\n" | vncpasswd $TAAS_HOME/.vnc/passwd
+ecmd ls -l /$TAAS_HOME/.vnc/
 
 echo "### create xstartup ###" `date`
 echo '#!/bin/sh
 unset SESSION_MANAGER
 unset DBUS_SESSION_BUS_ADDRESS
 [ -x /usr/bin/mate-session ] && exec /usr/bin/mate-session
-' > /root/.vnc/xstartup
+' > /$TAAS_HOME/.vnc/xstartup
 
 echo "### verify xstart content ###" `date`
-ecmd cat /root/.vnc/xstartup
+ecmd cat /$TAAS_HOME/.vnc/xstartup
 echo "### xstartup needs execution bit on ###" `date`
-ecmd chmod 755 /root/.vnc/xstartup
-ecmd ls -l /root/.vnc/
+ecmd chmod 755 /$TAAS_HOME/.vnc/xstartup
+ecmd ls -l /$TAAS_HOME/.vnc/
 echo "### enable vncserver to auto start with display number <8> ###"
-ecmd systemctl enable vncserver-root@:8.service
+ecmd systemctl enable vncserver-$TAAS_HOME@:8.service
 ecmd systemctl daemon-reload
-ecmd systemctl start vncserver-root@:8.service
+ecmd systemctl start vncserver-$TAAS_HOME@:8.service
 # }}}
 
 # Qins customized configuration {{{
 echo "Qin's special configuration"
 # Install oh-my-zsh; delete "env zsh" to avoid entering zsh
+emcd cd $TAAS_HOME
 ecmd sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sed '/env zsh/ d')"
 
 # Install vim, zsh, tmux config
 ecmd sh -c "$(curl -fsSL https://raw.githubusercontent.com/quentinchen727/zsh_tmux_vim_repo/master/tools/install.sh)"
 
 # Install vim-plug
-ecmd curl -fLo /root/.vim/autoload/plug.vim --create-dirs \
+ecmd curl -fLo /$TAAS_HOME/.vim/autoload/plug.vim --create-dirs \
   https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # Install YouCompleteMe
 ecmd yum install python-devel python34-devel automake gcc-c++ cmake
 echo "gcc and kernel-devel have already been installed"
 
-# Install jSHint for javascript
+# Install jSHint for javascript and js-yaml for yaml
 ecmd npm install -g jshint
+ecmd npm install -g js-yaml
 
 # Install python package flake8
 ecmd pip3 install flake8

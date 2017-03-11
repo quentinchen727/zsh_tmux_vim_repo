@@ -61,7 +61,7 @@ set shiftwidth=4
 
 " Turn on line numbers and relative numbers
 set number
-set relativenumber
+" set relativenumber
 
 " Highlight tailing whitespace
 " See issue: https://github.com/Integralist/ProVim/issues/4
@@ -300,7 +300,7 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Change into uppercase in insert mode
-inoremap <leader>u <esc>viwUwa
+inoremap <leader>u <esc>viwUea
 
 " Change into uppercase in normal mode
 nnoremap <leader>u viwUw
@@ -356,10 +356,10 @@ onoremap p i(
 cnoremap ;\ \(\)<Left><Left>
 
 " Split navigations
-" nnoremap <c-j> <c-w>j
-" nnoremap <c-k> <c-w>k
-" nnoremap <c-l> <c-w>l
-" nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
 
 " Enable folding with the spacebar
 nnoremap <space> za

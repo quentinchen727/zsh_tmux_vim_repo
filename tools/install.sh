@@ -7,7 +7,7 @@ cd
 git clone $CONFIG_REPO $CONFIG_DIR
 ln -sf ~/$CONFIG_DIR/vimrc ~/.vimrc
 ln -sf ~/$CONFIG_DIR/tmux.conf ~/.tmux.conf
-ln -sf ~/$CONFIG_DIR/Zeus.zsh ~/.oh-my-zsh/custom/Zeus.zsh
+ln -sf ~/$CONFIG_DIR/Athena.zsh ~/.oh-my-zsh/custom/Athena.zsh
 
 # Create link to temporary zsh file
 touch sisyphus.zsh
