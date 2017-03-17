@@ -47,6 +47,9 @@ set hidden
 " Turn word wrap off
 set nowrap
 
+" Set sidescroll for lines wider than window
+set sidescroll=1
+
 " Allow backspace to delete end of line, indent and start of line characters
 set backspace=indent,eol,start
 
