@@ -35,6 +35,12 @@ alias dotfiles="ls -a | grep '^\.' | grep --invert-match '\.DS_Store\|\.$'"
 alias l.='ls -d .*'
 # }}}
 
+# Functions {{{
+function cls {
+  cd $1 && ls
+}
+#}}}
+
 # Auto Completion {{{
 autoload -U compinit && compinit
 zmodload -i zsh/complist

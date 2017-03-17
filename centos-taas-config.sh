@@ -47,14 +47,16 @@ yum makecache fast
 
 # Add the mongodb repo {{{
 # single quote to strong quote the text, no shell parsing needed for $releasever
-  echo "Add Mongodb repo"
-  echo '[mongodb-org-3.4]
-  name=MongoDB Repository
-  baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
-  gpgcheck=1
-  enabled=1
-  gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc' \
-  > /etc/yum.repos.d/mongodb-org-3.4.repo
+echo "Add Mongodb repo"
+# Use quoted docstring to suppress variable substitutions
+cat > /etc/yum.repos.d/mongodb-org-3.4.repo <<"EOF"
+[mongodb-org-3.4]
+name=MongoDB Repository
+baseurl=https://repo.mongodb.org/yum/redhat/$releasever/mongodb-org/3.4/x86_64/
+gpgcheck=1
+enabled=1
+gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
+EOF
 }}}
 
 # Install TAAS packages {{{
@@ -82,9 +84,11 @@ pip install docker-compose
 # Docker configuration {{{
 echo "Configure Docker"
 ecmd mkdir -p /etc/systemd/system/docker.service.d
-echo '[Service]
-Environment="HTTP_PROXY=http://proxy.esl.cisco.com:80/" "HTTPS_PROXY=https://proxy.esl.cisco.com:80/" "NO_PROXY=localhost,127.0.0.1,dockerhub.cisco.com"
-' > /etc/systemd/system/docker.service.d/http-proxy.conf
+# Use docstring to accept variable substitutions
+cat > /etc/systemd/system/docker.service.d/http-proxy.conf <<EOF
+[Service]
+Environment="HTTP_PROXY=$CISCO_PROXY" "HTTPS_PROXY=$CISCO_PROXY" "NO_PROXY=$NO_PROXY_DOCKER"
+EOF
 ecmd systemctl enable docker
 ecmd systemctl daemon-reload
 ecmd systemctl start docker
