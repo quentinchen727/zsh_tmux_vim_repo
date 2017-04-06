@@ -190,6 +190,9 @@ Plug 'tpope/vim-commentary'
 " Ack search faster than grep
 Plug 'mileszs/ack.vim'
 
+" ZoomWin
+Plug 'vim-scripts/ZoomWin'
+
 " Javascript configuration
 " Nicer look for javascript: syntax + higlight + indent
 Plug 'jelera/vim-javascript-syntax'
@@ -200,6 +203,9 @@ Plug 'Raimondi/delimitMate'
 let delimitMate_expand_cr = 1
 " Extra completion for javascript
 Plug 'marijnh/tern_for_vim'
+
+" html or xml surrounding plugin
+Plug 'tpope/vim-surround'
 
 " Initialize plugin system
 call plug#end()
@@ -292,6 +298,10 @@ map <leader>' :NERDTreeToggle<cr>
 " to map something in just VISUAL mode use :vmap or :vnoremap
 
 " Always use no-recursive key mapping
+
+" YouCompleteMe subcommand mapping
+nnoremap <C-]> :YcmCompleter GoTo<cr>
+nnoremap <C-[> :YcmCompleter GoToReferences<cr>
 
 " insert to the end
 inoremap <C-e> <esc>A
