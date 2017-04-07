@@ -301,7 +301,7 @@ map <leader>' :NERDTreeToggle<cr>
 
 " YouCompleteMe subcommand mapping
 nnoremap <C-]> :YcmCompleter GoTo<cr>
-nnoremap <C-[> :YcmCompleter GoToReferences<cr>
+nnoremap <C-t> :YcmCompleter GoToReferences<cr>
 
 " insert to the end
 inoremap <C-e> <esc>A
