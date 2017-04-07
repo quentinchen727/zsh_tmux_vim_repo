@@ -1,1 +1,0 @@
-/root/cos-bin/docker/utils/taas-config.sh
