@@ -546,4 +546,7 @@ fun! SetDiffColors()
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
 autocmd FilterWritePre * call SetDiffColors()
+
+" sudo to write a system file
+command W w !sudo tee % > /dev/null
 " }}}
