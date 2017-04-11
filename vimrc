@@ -2,6 +2,8 @@
 " Settings {{{
 " Customized configuration
 let mapleader = "-"
+" Local leader configuration related to some file types
+" let maplocalleader = "-"
 
 " Switch syntax highlighting on, when the terminal has colors
 syntax on
@@ -171,7 +173,8 @@ Plug 'vim-scripts/indentpython.vim'
 Plug 'Valloric/YouCompleteMe'
 
 let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_python_binary_path = '/usr/bin/python'
+" let g:ycm_python_binary_path = '/usr/bin/python3'
 nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 
 " Syntax checking/highlighting and PEP8 check
@@ -300,8 +303,9 @@ map <leader>' :NERDTreeToggle<cr>
 " Always use no-recursive key mapping
 
 " YouCompleteMe subcommand mapping
-nnoremap <C-]> :YcmCompleter GoTo<cr>
-nnoremap <C-t> :YcmCompleter GoToReferences<cr>
+nnoremap <leader>d :YcmCompleter GoTo<cr>
+nnoremap <leader>r :YcmCompleter GoToReferences<cr>
+nnoremap <leader>f :YcmCompleter RefactorRename<space>
 
 " insert to the end
 inoremap <C-e> <esc>A
@@ -329,15 +333,15 @@ inoremap jk <esc>
 inoremap <esc> <nop>
 
 " toggle foldcolumn
-nnoremap <leader>f :call FolderColumnToggle()<cr>
+" nnoremap <leader>f :call FolderColumnToggle()<cr>
 
-function! FolderColumnToggle()
-  if &foldcolumn
-    setlocal foldcolumn=0
-  else
-    setlocal foldcolumn=4
-  endif
-endfunction
+" function! FolderColumnToggle()
+"   if &foldcolumn
+"     setlocal foldcolumn=0
+"   else
+"     setlocal foldcolumn=4
+"   endif
+" endfunction
 
 " Toggle Quickfix windows
 nnoremap <leader>q :call QuickfixToggle()<cr>
