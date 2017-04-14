@@ -307,6 +307,13 @@ nnoremap <leader>d :YcmCompleter GoTo<cr>
 nnoremap <leader>r :YcmCompleter GoToReferences<cr>
 nnoremap <leader>f :YcmCompleter RefactorRename<space>
 
+" window mapping
+" nnoremap - <C-w>-
+" nnoremap + <C-w>+
+" nnoremap <A-<> <C-w><
+" nnoremap <A->> <C-w>>
+nnoremap <F6> :b#<cr>
+
 " insert to the end
 inoremap <C-e> <esc>A
 
@@ -545,8 +552,8 @@ fun! SetDiffColors()
   highlight DiffChange cterm=bold ctermfg=white ctermbg=DarkBlue
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
-autocmd FilterWritePre * call SetDiffColors()
+autocmd filterwritepre * call setdiffcolors()
 
 " sudo to write a system file
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 " }}}

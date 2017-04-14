@@ -141,10 +141,12 @@ ecmd curl -fLo /$TAAS_HOME/.vim/autoload/plug.vim --create-dirs \
 ecmd yum install python-devel python34-devel automake gcc-c++ cmake
 echo "gcc and kernel-devel have already been installed"
 
-# Install jSHint for javascript, js-yaml for yaml, and jsonlint for json
+# Install jSHint for javascript, js-yaml for yaml, jsonlint for json, and bower
+# for frontend package management
 ecmd npm install -g jshint
 ecmd npm install -g js-yaml
 ecmd npm install -g jsonlint
+ecmd npm install -g bower
 
 # Install python package flake8
 ecmd pip3 install flake8
