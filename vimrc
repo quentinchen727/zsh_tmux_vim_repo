@@ -210,6 +210,10 @@ Plug 'marijnh/tern_for_vim'
 " html or xml surrounding plugin
 Plug 'tpope/vim-surround'
 
+
+" html css hi-speed coding
+Plug 'mattn/emmet-vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -312,7 +316,7 @@ nnoremap <leader>f :YcmCompleter RefactorRename<space>
 " nnoremap + <C-w>+
 " nnoremap <A-<> <C-w><
 " nnoremap <A->> <C-w>>
-nnoremap <F6> :b#<cr>
+nnoremap <F5> :b#<cr>
 
 " insert to the end
 inoremap <C-e> <esc>A
