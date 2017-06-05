@@ -526,7 +526,7 @@ endfunction
 augroup auto_fold
   autocmd!
   autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
-  autocmd BufRead * normal zM
+  autocmd BufRead * normal zR
 augroup END
 
 " " Rainbow parenthesis always on!
@@ -556,7 +556,7 @@ fun! SetDiffColors()
   highlight DiffChange cterm=bold ctermfg=white ctermbg=DarkBlue
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
-autocmd filterwritepre * call setdiffcolors()
+autocmd filterwritepre * call SetDiffColors()
 
 " sudo to write a system file
 command! W w !sudo tee % > /dev/null
