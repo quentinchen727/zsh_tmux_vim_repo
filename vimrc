@@ -210,6 +210,10 @@ Plug 'marijnh/tern_for_vim'
 " html or xml surrounding plugin
 Plug 'tpope/vim-surround'
 
+
+" html css hi-speed coding
+Plug 'mattn/emmet-vim'
+
 " Initialize plugin system
 call plug#end()
 
@@ -312,7 +316,7 @@ nnoremap <leader>f :YcmCompleter RefactorRename<space>
 " nnoremap + <C-w>+
 " nnoremap <A-<> <C-w><
 " nnoremap <A->> <C-w>>
-nnoremap <F6> :b#<cr>
+nnoremap <F5> :b#<cr>
 
 " insert to the end
 inoremap <C-e> <esc>A
@@ -522,7 +526,7 @@ endfunction
 augroup auto_fold
   autocmd!
   autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
-  autocmd BufRead * normal zM
+  autocmd BufRead * normal zR
 augroup END
 
 " " Rainbow parenthesis always on!
@@ -552,7 +556,7 @@ fun! SetDiffColors()
   highlight DiffChange cterm=bold ctermfg=white ctermbg=DarkBlue
   highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
 endfun
-autocmd filterwritepre * call setdiffcolors()
+autocmd filterwritepre * call SetDiffColors()
 
 " sudo to write a system file
 command! W w !sudo tee % > /dev/null
