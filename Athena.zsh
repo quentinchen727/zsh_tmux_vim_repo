@@ -1,6 +1,6 @@
 ## Exports {{{
 export GITHUB_USER="quentinchen727"
-export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin # Reorder PATH so local bin is first
+export PATH=~/local/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin # Reorder PATH so local bin is first
 export EDITOR="vim"
 ## }}}
 
