@@ -312,10 +312,10 @@ nnoremap <leader>r :YcmCompleter GoToReferences<cr>
 nnoremap <leader>f :YcmCompleter RefactorRename<space>
 
 " window mapping
-" nnoremap - <C-w>-
-" nnoremap + <C-w>+
-" nnoremap <A-<> <C-w><
-" nnoremap <A->> <C-w>>
+nnoremap - <C-w>-
+nnoremap + <C-w>+
+nnoremap 7 :vertical resize -1<cr>
+nnoremap 8 :vertical resize +1<cr>
 nnoremap <F5> :b#<cr>
 
 " insert to the end
