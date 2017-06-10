@@ -10,5 +10,8 @@
 	ui = auto
 [core]
 	editor = vim
+	excludesfile = /root/.gitignore
 [merge]
 	tool = kdiff3
+[credential]
+	helper = cache
