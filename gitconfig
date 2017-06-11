@@ -1,0 +1,17 @@
+[user]
+	email = quentin.chen727@gmail.com
+	name = quentin.chen727
+[push]
+	default = simple
+[branch]
+	autosetuprebase = always
+[color]
+[color]
+	ui = auto
+[core]
+	editor = vim
+	excludesfile = /root/.gitignore
+[merge]
+	tool = kdiff3
+[credential]
+	helper = cache
