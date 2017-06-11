@@ -16,8 +16,8 @@
 [credential]
 	helper = cache
 [alias]
-	ll = log --pretty=fuller --stat --graph --decorate
-	ls = log --pretty=oneline --graph --decorate
+	ll = log --pretty=fuller --abbrev-commit --stat --graph --decorate
+	ls = log --oneline --graph --decorate
 	ss = status -sb
 	br = branch
 	co = checkout
