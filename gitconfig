@@ -6,12 +6,20 @@
 [branch]
 	autosetuprebase = always
 [color]
-[color]
 	ui = auto
 [core]
 	editor = vim
-	excludesfile = /root/.gitignore
+	excludesfile = /$PWD/.gitignore
 [merge]
 	tool = kdiff3
+	conflictstyle = diff3
 [credential]
 	helper = cache
+[alias]
+	ll = log --pretty=fuller --stat --graph --decorate
+	ls = log --pretty=oneline --graph --decorate
+	ss = status -sb
+	br = branch
+	co = checkout
+	st = status
+
