@@ -181,6 +181,19 @@ nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<cr>
 Plug 'scrooloose/syntastic'
 Plug 'nvie/vim-flake8'
 
+" Recommended setting in offical docs
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Set vimscript lint
+let g:syntastic_vim_checker = ['vint']
+
 " Super searching
 Plug 'kien/ctrlp.vim'
 
@@ -189,6 +202,9 @@ Plug 'tpope/vim-fugitive'
 
 " Commentary
 Plug 'tpope/vim-commentary'
+
+" Quick mapping
+Plug 'tpope/vim-unimpaired'
 
 " Ack search faster than grep
 Plug 'mileszs/ack.vim'
@@ -210,9 +226,12 @@ Plug 'marijnh/tern_for_vim'
 " html or xml surrounding plugin
 Plug 'tpope/vim-surround'
 
-
 " html css hi-speed coding
 Plug 'mattn/emmet-vim'
+
+" vim session plugin
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-session'
 
 " Initialize plugin system
 call plug#end()
@@ -272,7 +291,7 @@ let g:gitgutter_eager = 0
 let g:gitgutter_sign_column_always = 1
 highlight clear SignColumn
 
-" Searching the file system
+" Map NERDTree toggle
 map <leader>' :NERDTreeToggle<cr>
 
 " Tabularize
@@ -522,7 +541,7 @@ function! s:RunShellCommand(cmdline)
   1
 endfunction
 
-" Close all folds when opening a new buffer
+" open all folds when opening a new buffer
 augroup auto_fold
   autocmd!
   autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
@@ -560,4 +579,9 @@ autocmd filterwritepre * call SetDiffColors()
 
 " sudo to write a system file
 command! W w !sudo tee % > /dev/null
+
+" Remember the list of my latest buffers. Somehow it does not work in the
+" setting section. Maybe it is negated by some other settings
+" set viminfo^=%
+
 " }}}

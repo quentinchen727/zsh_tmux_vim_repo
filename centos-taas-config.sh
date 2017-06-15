@@ -57,7 +57,7 @@ gpgcheck=1
 enabled=1
 gpgkey=https://www.mongodb.org/static/pgp/server-3.4.asc
 EOF
-}}}
+#}}}
 
 # Install TAAS packages {{{
 # lsb is the dependency for chrome
@@ -148,8 +148,18 @@ ecmd npm install -g js-yaml
 ecmd npm install -g jsonlint
 ecmd npm install -g bower
 
-# Install python package flake8
+# Install shell lint
+ecmd ym install ShellCheck
+
+# Install html lint
+yum install tidy
+
+# Install python package flake8 for linting. It combines flake8 and PyFlakes
 ecmd pip3 install flake8
+
+# Install vimscript lint
+pip3 install vim-vint
+
 echo
 echo "************** manually tuning instructions **************"
 echo "1.source /etc/environment to get proxy setting into effect"
