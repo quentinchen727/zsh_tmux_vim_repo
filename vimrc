@@ -337,6 +337,10 @@ nnoremap 7 :vertical resize -1<cr>
 nnoremap 8 :vertical resize +1<cr>
 nnoremap <F5> :b#<cr>
 
+" Syntastic mapping
+nnoremap <F3> :SyntasticCheck<cr>
+nnoremap <F2> :SyntasticToggleMode<cr>
+
 " insert to the end
 inoremap <C-e> <esc>A
 
