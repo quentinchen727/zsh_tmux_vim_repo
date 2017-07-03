@@ -188,7 +188,8 @@ set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
+" Turn on auto check on open
+let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " Set vimscript lint
@@ -333,9 +334,9 @@ nnoremap <leader>f :YcmCompleter RefactorRename<space>
 " window mapping
 nnoremap - <C-w>-
 nnoremap + <C-w>+
-nnoremap 7 :vertical resize -1<cr>
-nnoremap 8 :vertical resize +1<cr>
-nnoremap <F5> :b#<cr>
+nnoremap <F9> :vertical resize -1<cr>
+nnoremap <F10> :vertical resize +1<cr>
+nnoremap <F4> :b#<cr>
 
 " Syntastic mapping
 nnoremap <F3> :SyntasticCheck<cr>
