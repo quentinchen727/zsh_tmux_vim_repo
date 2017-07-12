@@ -22,9 +22,11 @@ function ecmd() { echo TIME: `date`; echo CMD: "$@"; "$@"; }
 # Add global http_proxy configuration {{{
 LAB_PROXY=http://171.71.50.129:3128
 CISCO_PROXY=http://proxy.esl.cisco.com:80
-lab_addrs=$(printf "%s," 20.0.{50,52,60}.{1..255})
+# lab_addrs=$(printf "%s," 20.0.{50,52,60}.{1..255})
+lab_addrs=20.0.50,20.0.52,20.0.60
 LAB_ADDRS=${lab_addrs%,}
-private_addrs=$(printf "%s," 10.{0..255}.{0..255}.{0..255})
+# private_addrs=$(printf "%s," 10.{0..255}.{0..255}.{0..255})
+private_addrs=10.
 PRIVATE_ADDRS=${private_addrs%,}
 NO_PROXY_DOCKER="localhost,127.0.0.1,dockerhub.cisco.com"
 NO_PROXY="$NO_PROXY_DOCKER,$LAB_ADDRS,$PRIVATE_ADDRS"
