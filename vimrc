@@ -193,7 +193,10 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 
 " Set vimscript lint
-let g:syntastic_vim_checker = ['vint']
+let g:syntastic_vim_checkers = ['vint']
+
+" set lint for python3
+let g:syntastic_python_checkers = ['flake8', 'python3']
 
 " Super searching
 Plug 'kien/ctrlp.vim'
@@ -550,6 +553,7 @@ endfunction
 augroup auto_fold
   autocmd!
   autocmd FileType vim,zsh,sh,conf setlocal foldmethod=marker
+  autocmd FileType xml setlocal foldmethod=syntax
   autocmd BufRead * normal zR
 augroup END
 
