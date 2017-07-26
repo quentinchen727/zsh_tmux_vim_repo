@@ -237,6 +237,10 @@ Plug 'mattn/emmet-vim'
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-session'
 
+" Gist
+" Plug 'mattn/webapi-vim'
+" Plug 'vim-scripts/Gist'
+
 " Initialize plugin system
 call plug#end()
 
@@ -333,6 +337,7 @@ map <leader>' :NERDTreeToggle<cr>
 nnoremap <leader>d :YcmCompleter GoTo<cr>
 nnoremap <leader>r :YcmCompleter GoToReferences<cr>
 nnoremap <leader>f :YcmCompleter RefactorRename<space>
+nnoremap <leader>h :YcmCompleter GetDoc<cr> <c-w>j<cr>
 
 " window mapping
 nnoremap - <C-w>-
