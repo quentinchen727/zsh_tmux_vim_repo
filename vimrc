@@ -241,6 +241,12 @@ Plug 'xolox/vim-session'
 " Plug 'mattn/webapi-vim'
 " Plug 'vim-scripts/Gist'
 
+" Jedi-vim, So cool
+Plug 'davidhalter/jedi-vim'
+
+" neovim
+" Plug 'Shougo/neocompletion'
+
 " Initialize plugin system
 call plug#end()
 
