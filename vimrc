@@ -18,7 +18,9 @@ set nobackup
 set nowritebackup
 
 " No swap file
-set noswapfile
+" set noswapfile
+" aggregate all swap files into one place and prepend to dir setting.
+set directory^=$HOME/.vim/tmp//
 
 " Command history
 set history=100
@@ -77,6 +79,7 @@ set list listchars=tab:\ \ ,trail:·
 set timeout timeoutlen=1000 ttimeoutlen=100
 
 " Always show status bar
+" setting it to 0 will disable it.
 set laststatus=2
 
 " Set the status line to something useful
@@ -162,10 +165,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
 let NERDTReeIgnore = ['\.pyc$', '\~$'] "ignore files in NERDTree
 
-" Python simple fold
-Plug 'tmhedberg/SimpylFold'
-let g:SimpylFold_docstring_preview = 1
-
 " Auto-indentation fix for python
 Plug 'vim-scripts/indentpython.vim'
 
@@ -215,6 +214,14 @@ Plug 'mileszs/ack.vim'
 
 " ZoomWin
 Plug 'vim-scripts/ZoomWin'
+
+" Python simple fold
+Plug 'tmhedberg/SimpylFold'
+let g:SimpylFold_docstring_preview = 1
+
+" python-mode
+Plug 'python-mode/python-mode'
+let g:pymode_python = 'python'
 
 " Javascript configuration
 " Nicer look for javascript: syntax + higlight + indent
@@ -341,7 +348,7 @@ map <leader>' :NERDTreeToggle<cr>
 
 " YouCompleteMe subcommand mapping
 nnoremap <leader>d :YcmCompleter GoTo<cr>
-nnoremap <leader>r :YcmCompleter GoToReferences<cr>
+nnoremap <leader>n :YcmCompleter GoToReferences<cr>
 nnoremap <leader>f :YcmCompleter RefactorRename<space>
 nnoremap <leader>h :YcmCompleter GetDoc<cr> <c-w>j<cr>
 
