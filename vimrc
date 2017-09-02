@@ -534,7 +534,7 @@ augroup END
 
 " specify syntax highlighting for specific files
 " autocmd Bufread,BufNewFile *.spv set filetype=php
-" autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
+autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
 
 " Highlight words to avoid in tech writing
 " http://css-tricks.com/words-avoid-educational-writing/
