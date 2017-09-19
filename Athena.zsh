@@ -1,6 +1,6 @@
 ## Exports {{{
 export GITHUB_USER="quentinchen727"
-export PATH=~/local/:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin # Reorder PATH so local bin is first
+export PATH=~/local/:/usr/bin:/usr/local/bin:/bin:/usr/sbin:/sbin # Reorder PATH so local bin is first
 export EDITOR="vim"
 ## }}}
 
@@ -25,7 +25,7 @@ function tmuxkill() {
 alias vi="vim"
 alias py='python3'
 alias r="source ~/.zshrc"
-alias py="python3"
+alias py="python3.6"
 alias tl="tmux ls"
 alias tat='tmux new-session -As $(basename "$PWD" | tr . -)' # will attach if session exists, or create a new session
 alias tmuxsrc="tmux source-file ~/.tmux.conf"

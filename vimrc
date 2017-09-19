@@ -221,7 +221,7 @@ let g:SimpylFold_docstring_preview = 1
 
 " python-mode
 Plug 'python-mode/python-mode'
-let g:pymode_python = 'python'
+let g:pymode_python = 'python' " Use python2 syntax checking
 
 " Javascript configuration
 " Nicer look for javascript: syntax + higlight + indent
@@ -249,7 +249,7 @@ Plug 'xolox/vim-session'
 " Plug 'vim-scripts/Gist'
 
 " Jedi-vim, So cool
-Plug 'davidhalter/jedi-vim'
+" Plug 'davidhalter/jedi-vim'
 
 " neovim
 " Plug 'Shougo/neocompletion'
